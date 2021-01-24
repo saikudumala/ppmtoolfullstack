@@ -17,5 +17,8 @@ public class ProjectService {
 			throw new ProjectIdException("Project " + project.getProjectIdentifier()+ "Already Exsists");
 		}
 	}
+	public Project findProjectByIdentifier(String ProjectId) {
+		return projectRepository.findByProjectIdentifier(ProjectId);
+	}
 
 }
