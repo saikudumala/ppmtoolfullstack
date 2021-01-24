@@ -17,7 +17,8 @@ public class Project {
 	private String projectName;
 	@NotBlank(message="Project Identifier is required")
 	@Size(min=5, max=5, message="Please use 4 to 5 characters allowed")
-	@Column(updatable= false, unique=true)
+	@Column(updatable= false, unique=true) 
+	//database layer, this happening after the record creation, after the validation service
 	private String projectIdentifier;
 	@NotBlank(message="Project Description is required")
 	private String description;
