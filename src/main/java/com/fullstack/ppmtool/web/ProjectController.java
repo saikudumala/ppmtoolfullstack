@@ -14,8 +14,10 @@ import com.fullstack.ppmtool.services.MapErrorValidationService;
 import com.fullstack.ppmtool.services.ProjectService;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.http.ResponseEntity.BodyBuilder;
 @RestController
 @RequestMapping("/api/project")
 public class ProjectController {
@@ -43,4 +45,10 @@ public class ProjectController {
 		Iterable<Project> ListOfProjects = projectService.findAll();
 		return new ResponseEntity<Iterable<Project>>(ListOfProjects,HttpStatus.OK);
 	}
+	@DeleteMapping("/{projectId}")
+	public ResponseEntity<?> deleteProject(@PathVariable String projectId){
+		projectService.deleteProjectByIdentifier(projectId);
+		return new ResponseEntity<String>("Project with "+ projectId + " is deleted",HttpStatus.OK);
+	}
+	
 }
