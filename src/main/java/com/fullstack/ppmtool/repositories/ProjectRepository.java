@@ -7,6 +7,8 @@ import com.fullstack.ppmtool.domain.Project;
 public interface ProjectRepository  extends CrudRepository<Project , Long> {
 
 	Project findByProjectIdentifier(String ProjectIndentifier);
-	
+
+	@Override
+	Iterable<Project> findAll();
 
 }

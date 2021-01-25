@@ -36,10 +36,11 @@ public class ProjectController {
 	@GetMapping("/{projectId}")
 	public ResponseEntity<?> findProject(@PathVariable String projectId){
 		Project projectFetched = projectService.findProjectByIdentifier(projectId);
-		if(projectFetched==null) {
-			throw new ProjectIdException("Project " + projectId.toUpperCase() + " does not exsists");
-		}
 		return new ResponseEntity<Project>(projectFetched,HttpStatus.OK);
 	}
-
+	@GetMapping("/all")
+	public ResponseEntity<?> findAllProjects(){
+		Iterable<Project> ListOfProjects = projectService.findAll();
+		return new ResponseEntity<Iterable<Project>>(ListOfProjects,HttpStatus.OK);
+	}
 }
