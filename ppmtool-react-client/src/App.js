@@ -11,6 +11,7 @@ function App() {
     <Header/>
     <Route exact path ='/dashboard' component ={Dashboard}></Route>
     <Route exact path ='/addProject' component ={AddProject}></Route>
+    
     </div>
     </Router>
   );
