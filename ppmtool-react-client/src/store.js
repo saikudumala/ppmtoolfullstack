@@ -11,7 +11,7 @@ if(window.navigator.userAgent.includes("Chrome")){
     window.__REDUX_DEVTOOLS_EXTENSION__()));
 }
 else{
-    store=createStore(rootStore,initialState,compose(applyMiddleware(...middleWare)));
+    store=createStore(rootReducer,initialState,compose(applyMiddleware(...middleWare)));
 }
 
 export default store;
