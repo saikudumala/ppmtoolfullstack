@@ -1,4 +1,7 @@
 import React, { Component } from 'react'
+import PropTypes from "prop-types"
+import {connect} from "react-redux"
+import {createProject} from "../../action/projectAction"
 
 class AddProject extends Component {
     constructor() {
@@ -8,11 +11,17 @@ class AddProject extends Component {
         projectIdentifier: "",
         description:"",
         start_date:"",
-        end_date:""
+        end_date:"",
+        errors:{}
         };
         this.onChange=this.onChange.bind(this);
         this.onSubmit=this.onSubmit.bind(this);
     };
+    componentWillReceiveProps(nextProp){
+        if(nextProp.errors){
+          this.setState({errors:nextProp.errors});
+        } 
+    }
     onChange(e){
         console.log(e);
         this.setState({[e.target.name]:e.target.value});
@@ -26,10 +35,11 @@ class AddProject extends Component {
             start_date:this.state.start_date,
             end_date:this.state.end_date
         };
-    console.log(newProject);
+        this.props.createProject(newProject, this.props.history);
     }
    
     render() {
+        const {errors}=this.state;
         return (
             <div>
             <div className="container">
@@ -44,6 +54,7 @@ class AddProject extends Component {
                             onChange={this.onChange}
                              />
                         </div>
+                        <p>{errors.projectName}</p>
                         <div className="form-group">
                             <input type="text" className="form-control form-control-lg" placeholder="Unique Project ID"
                              name = "projectIdentifier" value ={this.state.projectIdentifier} 
@@ -79,5 +90,19 @@ class AddProject extends Component {
             </div>
         )
     }
+    
 }
-export default AddProject;
+
+AddProject.propTypes={
+    createProject: PropTypes.func.isRequired,
+    errors:PropTypes.object.isRequired
+}
+
+const mapStateToProps= state=>({
+    errors:state.errors
+})
+
+export default connect(mapStateToProps,
+    {createProject}
+    )
+    (AddProject);
